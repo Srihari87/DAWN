@@ -63,7 +63,11 @@ def prepare_environment(config: configparser.ConfigParser) -> NamedTuple:
     train_set, test_set = download_victim(victim_dataset, victim_data_path, training_transforms)
 
     # DOWNLOAD WATERMARK DATASET
-    watermark_size = int(config["ATTACKER"]["watermark_size"])
+    if "watermark_size" in config["ATTACKER"]:
+        watermark_size = int(config["ATTACKER"]["watermark_size"])
+    else:
+        watermark_size = int(config["watermark"]["watermark_size"])
+
 
     # SUBCLASS TRAINING SET IF THE SETS ARE THE SAME, OTHERWISE JUST TAKE SAMPLES
     if victim_dataset == watermark_dataset:
