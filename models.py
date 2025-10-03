@@ -13,6 +13,7 @@
 
 import torch
 import torch.nn as nn
+from resnet20 import resnet20
 from torch.nn import functional as F
 
 
