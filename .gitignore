@@ -5,6 +5,23 @@ __pycache__/
 
 # C extensions
 *.so
+# Data & models
+data/
+results/
+*.pt
+*.pkl
+
+# Logs
+*.out
+*.err
+epoch_logs_*.txt
+
+# Slurm
+*.sbatch
+
+# Temp / backups
+*.save
+__pycache__/
 
 # Distribution / packaging
 .Python

@@ -208,11 +208,19 @@ def create_dir_if_doesnt_exist(path_to_dir: str) -> None:
 
 
 def setup_transformations(training_set: str, watermark_set: str, force_greyscale: bool, normalize_with_imagenet_vals: bool, input_size: int) -> Tuple[tv.transforms.Compose, tv.transforms.Compose]:
-    mean = [0.5, 0.5, 0.5]
-    std = [0.5, 0.5, 0.5]
+# --- FIX: correct normalization per dataset ---
+    if training_set == "MNIST" and watermark_set == "MNIST":
+    	mean = [0.5]
+    	std = [0.5]
+    else:
+    	mean = [0.5, 0.5, 0.5]
+    	std = [0.5, 0.5, 0.5]
+
+# Optional ImageNet normalization (ONLY for 3-channel data)
     if normalize_with_imagenet_vals:
-        mean =  [0.485, 0.456, 0.406]
-        std  =  [0.229, 0.224, 0.225]
+    	mean = [0.485, 0.456, 0.406]
+    	std  = [0.229, 0.224, 0.225]
+
     train_transforms = {
         "MNIST": {
             "train": tv.transforms.Compose([
